@@ -1,0 +1,88 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+# Assets: o repositório guarda só o que o app empacota (o que o pubspec.yaml
+# declara), porque o build na nuvem compila a partir do clone e parava na
+# primeira linha do pubspec que apontava para um arquivo ausente. As sobras
+# (tiles PNG antigos, zips de mapa, fontes-fonte dos ícones) continuam fora.
+#
+# Os tiles de mapa (assets/overlays/) saíram do APK e do repositório: cada
+# celular baixa o mapa do bucket "dados" do Supabase, então versionar 1,4 GB
+# de imagem só fazia o clone e o build na nuvem pesarem. A pasta continua no
+# computador — é dela que saem os .zip enviados ao Supabase.
+#
+# "/assets/*" e não "assets/": ignorar a PASTA impediria as exceções abaixo
+# de reincluir qualquer coisa de dentro dela.
+/assets/*
+!/assets/fonts/
+!/assets/logo.png
+!/assets/SevNotaveis.csv
+!/assets/KMxEst.csv
+!/assets/estacas_coords.csv
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/coverage/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+/android/build/
+
+# Stray local SQLite artifact (real DB lives under the app's data dir)
+*.db
+
+# Dependências do sharp, usado por tool/converter_tiles_webp.js
+/node_modules/
+/package.json
+/package-lock.json
+
+# PNGs originais dos tiles, guardados ao converter para WebP
+# (regeneráveis por tool/split_overlay.dart a partir dos mapas do CAD)
+/_tiles_png_backup/
+
+# Assinatura do APK de release — NUNCA versionar (quem tiver a chave pode
+# publicar atualizações se passando pelo app). Guarde um backup seguro fora
+# do projeto: perder o .jks impossibilita atualizar o app já instalado.
+/android/key.properties
+*.jks
+*.keystore
+# Widget Preview related
+.widget_preview/
+
+# Scripts SQL e functions do Supabase ficam fora do versionamento
+/supabase/

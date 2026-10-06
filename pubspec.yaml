@@ -1,0 +1,84 @@
+name: namer_app
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# O número depois do "+" tem que subir a cada APK distribuído: é ele que a
+# atualização pelo app compara (ver supabase/versao_app.sql).
+version: 1.0.0+2
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  camera: ^0.12.0+1
+  path_provider: ^2.1.5
+  path: ^1.9.1
+  geolocator: ^13.0.0
+  image: ^4.9.1
+  csv: ^8.0.0
+  flutter_map: ^7.0.2
+  latlong2: ^0.9.1
+  proj4dart: ^2.1.0
+  speech_to_text: ^7.4.0
+  sensors_plus: ^7.0.0
+  share_plus: ^10.0.3
+  sqflite: ^2.4.1
+  shared_preferences: ^2.3.0
+  supabase_flutter: ^2.6.0
+  flutter_local_notifications: ^18.0.1
+  timezone: ^0.9.4
+  connectivity_plus: ^6.0.5
+  crypto: ^3.0.6
+  pdf: ^3.13.0
+  printing: ^5.15.0
+
+  archive: ^4.0.9
+  package_info_plus: ^9.0.1
+  open_filex: ^4.7.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+  flutter_launcher_icons: ^0.14.3
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+
+  remove_alpha_ios: true
+  background_color_ios: "#1F2933"
+  image_path: "assets/icone_app.png"
+  adaptive_icon_background: "#1F2933"
+  adaptive_icon_foreground: "assets/icone_app_foreground.png"
+
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/logo.png
+    - assets/fonts/custom_pt_10.zip
+    - assets/fonts/custom_pt_11.zip
+    - assets/fonts/custom_pt_12.zip
+    - assets/fonts/custom_pt_13.zip
+    - assets/fonts/custom_pt_14.zip
+    - assets/fonts/custom_pt_15.zip
+    - assets/fonts/custom_pt_16.zip
+    - assets/fonts/custom_pt_17.zip
+    - assets/fonts/custom_pt_18.zip
+    - assets/fonts/custom_pt_19.zip
+    - assets/fonts/custom_pt_20.zip
+    - assets/fonts/custom_pt_21.zip
+    - assets/fonts/custom_pt_22.zip
+    - assets/fonts/custom_pt_23.zip
+    - assets/fonts/custom_pt_24.zip
+    - assets/SevNotaveis.csv
+    - assets/KMxEst.csv
+    - assets/estacas_coords.csv
+ 

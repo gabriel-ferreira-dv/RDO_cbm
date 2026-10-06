@@ -1,0 +1,59 @@
+# Build do iOS na nuvem (Codemagic), para compilar sem ter um Mac.
+#
+# Compilar para iPhone exige Xcode, que só roda em macOS. O Codemagic empresta
+# um Mac a cada build: você envia o código pelo repositório, ele compila,
+# assina e manda para o TestFlight, de onde os encarregados instalam.
+#
+# Antes do primeiro build (uma vez só, tudo pelo navegador):
+#
+#  1. Conta Apple Developer (US$ 99/ano) — developer.apple.com/programs
+#  2. Em App Store Connect → Apps → "+" crie o app com o bundle id
+#     br.com.cbmsa.rdocbm (o mesmo de ios_signing abaixo). Anote o "Apple ID"
+#     numérico que aparece em App Information e ponha em APP_ID abaixo.
+#  3. Em App Store Connect → Users and Access → Integrations → App Store
+#     Connect API, gere uma chave com papel "App Manager" e baixe o .p8.
+#  4. No Codemagic: Team settings → Integrations → Developer Portal →
+#     Connect, cole a chave. Dê a essa integração o nome "CBM App Store"
+#     (tem que ser igual ao de `integrations` abaixo).
+#  5. Conecte o repositório no Codemagic e rode o workflow "ios-testflight".
+#
+# A assinatura (certificado e perfil) é criada e renovada pelo próprio
+# Codemagic a partir da chave do passo 3 — não precisa gerar nada à mão.
+
+workflows:
+  ios-testflight:
+    name: iOS → TestFlight
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    integrations:
+      app_store_connect: CBM App Store
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: br.com.cbmsa.rdocbm
+      vars:
+        # Apple ID numérico do app em App Store Connect (passo 2).
+        APP_ID: 0000000000
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Dependências
+        script: flutter pub get
+      - name: Assinatura
+        script: xcode-project use-profiles
+      - name: Compilar o .ipa
+        # O TestFlight recusa um build com número repetido: pega o último que
+        # já subiu e soma 1, para ninguém precisar lembrar de incrementar.
+        script: |
+          ULTIMO=$(app-store-connect get-latest-testflight-build-number "$APP_ID" || echo 0)
+          flutter build ipa --release \
+            --build-number=$((ULTIMO + 1)) \
+            --export-options-plist=/Users/builder/export_options.plist
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
