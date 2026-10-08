@@ -19,7 +19,7 @@ class _Config {
 
 const _configs = [
   // _Config(source: 'assets/Contorno_Fundão.png',  output: 'assets/overlays/Contorno_Fundão',  cols: 15, rows: 30),
-  _Config(source: 'C:/Users/064925/Downloads/tTRECHO D2.png', output: "C:\\Users\\064925\\Teste_dart\\meuApp\\flutter_application_1\\assets\\d2M", cols: 25, rows: 90),
+  _Config(source: 'C:/Users/064925/Downloads/IBIRAÇU MAPrev.png', output: "C:\\Users\\064925\\Teste_dart\\meuApp\\flutter_application_1\\assets\\d2M", cols: 20, rows: 30),
 ];
 
 void main() async {
